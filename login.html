@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Login - A J KART</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main style="max-width:420px;margin:60px auto;padding:20px;background:#fff;border-radius:8px;border:1px solid #eee;">
+  <h2>User Login</h2>
+    <div>
+      <input id="username" placeholder="username" style="width:100%;padding:8px;margin-bottom:8px;">
+      <input id="password" type="password" placeholder="password" style="width:100%;padding:8px;margin-bottom:8px;">
+      <button id="loginBtn" class="primary">Login</button>
+      <p style="margin-top:12px;font-size:13px;color:#666">Demo users: <b>user/userpass</b> or <b>host/hostpass</b></p>
+    </div>
+  </main>
+  <script>
+    document.getElementById('loginBtn').addEventListener('click', async ()=>{
+      const u = document.getElementById('username').value.trim();
+      const p = document.getElementById('password').value;
+      if(!u||!p){ alert('Enter credentials'); return; }
+      const res = await fetch('/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});
+      if(!res.ok){ alert('Login failed'); return; }
+      const j = await res.json();
+      localStorage.setItem('flipkart_token', j.token);
+      localStorage.setItem('flipkart_role', j.role);
+      if(j.role==='host') window.location = '/host.html'; else window.location = '/';
+    });
+  </script>
+</body>
+</html>

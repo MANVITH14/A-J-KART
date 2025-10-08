@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>A J KART</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="left">
+  <div class="brand">A J KART</div>
+  <div class="tagline">Explore. Shop. Save.</div>
+    </div>
+    <div class="center">
+      <div class="search">
+        <input id="searchInput" placeholder="Search for products, brands and more">
+        <button id="searchBtn">Search</button>
+      </div>
+      <div class="filters" id="categoryFilters"></div>
+      <div class="controls">
+        <select id="brandFilter"><option value="">All Brands</option></select>
+        <select id="priceFilter">
+          <option value="">All Prices</option>
+          <option value="0-499">Under ₹500</option>
+          <option value="500-1999">₹500 - ₹1,999</option>
+          <option value="2000-9999">₹2,000 - ₹9,999</option>
+          <option value="10000-999999">₹10,000 &amp; Above</option>
+        </select>
+        <select id="sortBy">
+          <option value="">Sort</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="rating-desc">Rating</option>
+        </select>
+      </div>
+    </div>
+    <div class="right">
+      <a id="loginLink" href="/login.html" style="color:white;text-decoration:none;margin-right:12px">Login</a>
+      <button id="cartBtn">Cart (<span id="cartCount">0</span>)</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Top Deals on Electronics & Accessories</h1>
+        <p>Hand-picked products, secure checkout, fast delivery.</p>
+      </div>
+    </section>
+
+    <section class="products">
+      <aside class="sidebar">
+        <h4>Categories</h4>
+        <div id="sidebarCategories"></div>
+      </aside>
+      <div class="product-area">
+        <div id="productGrid" class="grid"></div>
+      </div>
+    </section>
+
+    <div id="cartDrawer" class="cart-drawer">
+      <div class="cart-header">
+        <h3>Your Cart</h3>
+        <button id="closeCart">Close</button>
+      </div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-checkout">
+        <h4>Shipping address</h4>
+        <div class="address-form">
+          <input id="addrName" placeholder="Full name">
+          <input id="addrLine1" placeholder="Address line 1">
+          <input id="addrCity" placeholder="City">
+          <input id="addrState" placeholder="State">
+          <input id="addrPincode" placeholder="Pincode / ZIP">
+        </div>
+        <div class="cart-footer">
+          <div class="total">Amount: <input id="cartAmount" style="width:140px;padding:6px;border-radius:4px;border:1px solid #e2e8f0;" /></div>
+          <button id="checkoutBtn" class="primary">Pay / Checkout</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/app.js"></script>
+  <script>
+    (function(){
+      const role = localStorage.getItem('flipkart_role');
+      const token = localStorage.getItem('flipkart_token');
+      const loginLink = document.getElementById('loginLink');
+      if(token && role==='host'){
+        loginLink.textContent = 'Host Dashboard'; loginLink.href='/host.html';
+      } else if(token && role==='user'){
+        loginLink.textContent = 'My Account'; loginLink.href='/';
+      }
+    })();
+  </script>
+</body>
+</html>
